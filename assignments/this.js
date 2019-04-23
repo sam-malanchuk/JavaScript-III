@@ -32,11 +32,16 @@ function Binding(obj) {
         console.log(`The following object is shown through an example of ${type} Binding`, this);
     }
 }
-const newBingingExample = new Binding({property1: "new's Variable 1", property2: "new's Variable 2"});
-newBingingExample.method1('New');
+const newBingingObject = new Binding({property1: "new's Variable 1", property2: "new's Variable 2"});
+newBingingObject.method1('New');
 
 // Principle 4
 // code example for Explicit Binding
-const explicitBingingExample = new Binding({property1: "explicit's Variable 1", property2: "explicit's Variable 2"});
+function explicitBingingObject(name) {
+    console.log(newBingingObject.method1(this.type));
+}
+// const explicitBingingObject = new Binding({property1: "explicit's Variable 1", property2: "explicit's Variable 2"});
 
-newBingingExample.method1.call(explicitBingingExample);
+// explicitBingingObject.method1.call("test");
+// explicitBingingObject("Explicit");
+explicitBingingObject.call(newBingingObject);
