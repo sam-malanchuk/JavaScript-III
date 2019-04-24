@@ -26,22 +26,28 @@ implicitBinding.thisMethod();
 // Principle 3
 // code example for New Binding
 function Binding(obj) {
-    this.property1 = obj.property1;
+    this.name = obj.name;
     this.property2 = obj.property2;
-    this.method1 = function(type) {
-        console.log(`The following object is shown through an example of ${type} Binding`, this);
+    this.method1 = function() {
+        console.log(`The following object is shown through an example of ${this.name} Binding`, this);
     }
 }
-const newBingingObject = new Binding({property1: "new's Variable 1", property2: "new's Variable 2"});
-newBingingObject.method1('New');
+const newBingingObject = new Binding({name: "New", property2: "new's Variable 2"});
+newBingingObject.method1();
 
 // Principle 4
 // code example for Explicit Binding
-function explicitBingingObject(name) {
-    console.log(newBingingObject.method1(this.type));
+function explicitBinging(obj) {
+    Binding.call(this, obj); // new binding
+    this.property3 = obj.property3;
+    this.property4 = obj.property4;
 }
-// const explicitBingingObject = new Binding({property1: "explicit's Variable 1", property2: "explicit's Variable 2"});
 
-// explicitBingingObject.method1.call("test");
-// explicitBingingObject("Explicit");
-explicitBingingObject.call(newBingingObject);
+const explicitBingingObject = new explicitBinging({
+    name: 'Explicit',
+    property2: 'explicit string 2',
+    property3: 'explicit string 3',
+    property4: 'explicit string 4'
+});
+
+explicitBingingObject.method1(); // calling method of object that was created from a constructor that used call
